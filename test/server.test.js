@@ -1,35 +1,29 @@
-const { expect } = require('chai');
-const request = require('supertest');
+const assert = require('assert');
 const http = require('http');
 
-const hostname = '127.0.0.1';
-const port = 3000;
+const server = require('../server');
 
-const server = http.createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello, World!\n');
-});
+describe('GET /greet', () => {
+  it('should return Hello, World!', (done) => {
+    http.get('http://127.0.0.1:3000/greet', (res) => {
+      assert.strictEqual(res.statusCode, 200);
 
-describe('GET /', () => {
-  let app;
+      let data = '';
+      res.on('data', chunk => {
+        data += chunk;
+      });
 
-  before((done) => {
-    app = server.listen(port, hostname, done);
-  });
-
-  after((done) => {
-    app.close(done);
-  });
-
-  it('responds with Hello, World!', (done) => {
-    request(app)
-      .get('/')
-      .expect(200)
-      .end((err, res) => {
-        if (err) return done(err);
-        expect(res.text).to.equal('Hello, World!\n');
+      res.on('end', () => {
+        assert.strictEqual(data, 'Hello, World!');
         done();
       });
+    });
+  });
+
+  it('should return 404 for non-existing routes', (done) => {
+    http.get('http://127.0.0.1:3000/nonexistent', (res) => {
+      assert.strictEqual(res.statusCode, 404);
+      done();
+    });
   });
 });
