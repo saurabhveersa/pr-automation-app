@@ -1,29 +1,14 @@
-# Hello World Node.js Application
+# Node.js Hello World Application
 
-This is a basic Node.js application with a simple HTTP endpoint that returns a greeting message.
+This is a simple Node.js application with an HTTP endpoint that returns a greeting message.
 
-## Installation
+## How to Run
 
-Ensure you have Node.js installed on your machine.
+1. Ensure you have Node.js installed on your machine.
+2. Clone the repository.
+3. Run `node app.js` to start the server.
+4. Open your browser and go to `http://127.0.0.1:3000` to see the greeting message.
 
-```bash
-npm install
-```
-
-## Running the Server
-
-To start the server, run:
-
-```bash
-npm start
-```
-
-The server will run at [http://127.0.0.1:3000](http://127.0.0.1:3000) and return "Hello, World!".
-
-## Running Tests
-
-To run the tests, use:
-
-```bash
-npm test
-```
+## Features
+- Responds with a greeting message.
+- Logs a welcome message to the console when accessing the main URL.
